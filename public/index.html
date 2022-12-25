@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Real Estates</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/app.css" />
+  </head>
+  <link rel="stylesheet" href="./css/bootstrap.min.css" />
+  <body>
+    <div id="app" class="container">
+      <p class="mt-4">
+        Get latest offers here:
+        <button @click="getImmos" class="btn btn-sm btn-outline-primary">Show</button>
+      </p>
+      <div v-if="selectedImmo !== -1" class="d-flex mt-4">
+        <input type="text" v-model="selectedImmo.price" class="form-control w-25 mr-2" placeholder="Enter new  Price" />
+        <button @click="editImmo" class="btn btn-outline-success" >
+          <i class="fa-solid fa-check"></i>
+        </button>
+      </div>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Title</th>
+            <th>Address</th>
+            <th>Price</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="immo of immos" :key="immo.id">
+            <td><img :src="immo.image" alt="" height="120" /></td>
+            <td class="align-middle">{{immo.title}}</td>
+            <td class="align-middle">
+              <span class="d-block">{{immo.postCode}}</span>
+              <span class="d-block">{{immo.city}}</span>
+              <span class="d-block">{{immo.country}}</span>
+            </td>
+            <td class="align-middle">
+              <span v-if="immo.id === selectedImmo.id" class="selectedElement p-1"
+                >{{immo.price.toLocaleString()}}€</span
+              >
+              <span v-else class="p-1">{{immo.price.toLocaleString()}}€</span>
+            </td>
+            <td class="align-middle">
+              <button @click="delImmo(immo)" class="btn btn-outline-danger">
+                <i class="fa-regular fa-trash-can"></i></button
+              ><button @click="selectImmo(immo)" class="btn btn-outline-primary ml-2">
+                <i class="fa-solid fa-pencil"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.45/vue.global.min.js"></script>
+    <script src="./js/app.js"></script>
+  </body>
+</html>
